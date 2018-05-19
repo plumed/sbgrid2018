@@ -6,134 +6,59 @@ MOLINFO STRUCTURE=GB1_native.pdb
 # Analysis is usually cheaper than simulation, so we can make the whole protein whole.
 WHOLEMOLECULES ENTITY0=1-436 
 
-# calculate the number of six residue segments of protein that are in an parallel and antiparallel beta sheet configuration
-# we need wholemolecule here?
-#pbrmsd: PARABETARMSD RESIDUES=all TYPE=OPTIMAL R_0=0.1 STRANDS_CUTOFF=1
-#abrmsd: ANTIBETARMSD RESIDUES=all TYPE=OPTIMAL R_0=0.1 STRANDS_CUTOFF=1
 
-# calculate the number of six residue segments of protein that are in an alpha helical configuration
-#armsd: ALPHARMSD RESIDUES=all TYPE=OPTIMAL R_0=0.1
+rmsd: RMSD REFERENCE=GB1_native_CA.pdb TYPE=OPTIMAL
 
-# maybe we need a CV that use dihedrals to showcase MOLINFO shortcuts
+# these residues are in a alpha helix in the native structure
+alpha: ALPHABETA ...
+ATOMS1=@psi-23 REFERENCE1=-pi/4
+ATOMS2=@psi-24 REFERENCE2=-pi/4
+ATOMS3=@psi-25 REFERENCE3=-pi/4
+ATOMS4=@psi-26 REFERENCE4=-pi/4
+ATOMS5=@psi-27 REFERENCE5=-pi/4
+ATOMS6=@psi-28 REFERENCE6=-pi/4
+ATOMS7=@psi-29 REFERENCE7=-pi/4
+ATOMS8=@psi-30 REFERENCE8=-pi/4
+ATOMS9=@psi-31 REFERENCE9=-pi/4
+ATOMS10=@psi-32 REFERENCE10=-pi/4
+ATOMS11=@psi-33 REFERENCE11=-pi/4
+ATOMS12=@psi-34 REFERENCE12=-pi/4
+ATOMS13=@psi-35 REFERENCE13=-pi/4
+ATOMS14=@psi-36 REFERENCE14=-pi/4
+ATOMS15=@psi-37 REFERENCE15=pi
+...
+
+# these residues are in beta sheets in the native structure
+beta: ALPHABETA ...
+ATOMS1=@psi-2 REFERENCE1=3/4*pi
+ATOMS2=@psi-3 REFERENCE2=3/4*pi
+ATOMS3=@psi-4 REFERENCE3=3/4*pi
+ATOMS4=@psi-5 REFERENCE4=3/4*pi
+ATOMS5=@psi-6 REFERENCE5=3/4*pi
+ATOMS6=@psi-7 REFERENCE6=3/4*pi
+ATOMS7=@psi-8 REFERENCE7=3/4*pi
+ATOMS8=@psi-13 REFERENCE8=3/4*pi
+ATOMS9=@psi-14 REFERENCE9=3/4*pi
+ATOMS10=@psi-15 REFERENCE10=3/4*pi
+ATOMS11=@psi-16 REFERENCE11=3/4*pi
+ATOMS12=@psi-17 REFERENCE12=3/4*pi
+ATOMS13=@psi-18 REFERENCE13=3/4*pi
+ATOMS14=@psi-19 REFERENCE14=3/4*pi
+ATOMS15=@psi-42 REFERENCE15=3/4*pi
+ATOMS16=@psi-43 REFERENCE16=3/4*pi
+ATOMS17=@psi-44 REFERENCE17=3/4*pi
+ATOMS18=@psi-45 REFERENCE18=3/4*pi
+ATOMS19=@psi-46 REFERENCE19=3/4*pi
+ATOMS20=@psi-51 REFERENCE20=3/4*pi
+ATOMS21=@psi-52 REFERENCE21=3/4*pi
+ATOMS22=@psi-53 REFERENCE22=3/4*pi
+ATOMS23=@psi-54 REFERENCE23=3/4*pi
+ATOMS24=@psi-55 REFERENCE24=3/4*pi
+...
 
 # print out information to file
-#PRINT ARG=pbrmsd,abrmsd,armsd STRIDE=1 FILE=COLVAR_ANALYSIS
+PRINT ARG=rmsd,alpha,beta STRIDE=1 FILE=COLVAR_ANALYSIS
 
 # Align and dump the whole molecule, mostly for visualization
 FIT_TO_TEMPLATE REFERENCE=GB1_native.pdb TYPE=OPTIMAL
 DUMPATOMS ATOMS=1-436 FILE=whole.xtc
-
-# Ramachandran plot
-# Can be generated using this script:
-# awk 'BEGIN{for(i=2;i<=55;i++)printf("phi%d: TORSION ATOMS=@phi-%d\npsi%d: TORSION ATOMS=@psi-%d\n",i,i,i,i)}'
-phi2: TORSION ATOMS=@phi-2
-psi2: TORSION ATOMS=@psi-2
-phi3: TORSION ATOMS=@phi-3
-psi3: TORSION ATOMS=@psi-3
-phi4: TORSION ATOMS=@phi-4
-psi4: TORSION ATOMS=@psi-4
-phi5: TORSION ATOMS=@phi-5
-psi5: TORSION ATOMS=@psi-5
-phi6: TORSION ATOMS=@phi-6
-psi6: TORSION ATOMS=@psi-6
-phi7: TORSION ATOMS=@phi-7
-psi7: TORSION ATOMS=@psi-7
-phi8: TORSION ATOMS=@phi-8
-psi8: TORSION ATOMS=@psi-8
-phi9: TORSION ATOMS=@phi-9
-psi9: TORSION ATOMS=@psi-9
-phi10: TORSION ATOMS=@phi-10
-psi10: TORSION ATOMS=@psi-10
-phi11: TORSION ATOMS=@phi-11
-psi11: TORSION ATOMS=@psi-11
-phi12: TORSION ATOMS=@phi-12
-psi12: TORSION ATOMS=@psi-12
-phi13: TORSION ATOMS=@phi-13
-psi13: TORSION ATOMS=@psi-13
-phi14: TORSION ATOMS=@phi-14
-psi14: TORSION ATOMS=@psi-14
-phi15: TORSION ATOMS=@phi-15
-psi15: TORSION ATOMS=@psi-15
-phi16: TORSION ATOMS=@phi-16
-psi16: TORSION ATOMS=@psi-16
-phi17: TORSION ATOMS=@phi-17
-psi17: TORSION ATOMS=@psi-17
-phi18: TORSION ATOMS=@phi-18
-psi18: TORSION ATOMS=@psi-18
-phi19: TORSION ATOMS=@phi-19
-psi19: TORSION ATOMS=@psi-19
-phi20: TORSION ATOMS=@phi-20
-psi20: TORSION ATOMS=@psi-20
-phi21: TORSION ATOMS=@phi-21
-psi21: TORSION ATOMS=@psi-21
-phi22: TORSION ATOMS=@phi-22
-psi22: TORSION ATOMS=@psi-22
-phi23: TORSION ATOMS=@phi-23
-psi23: TORSION ATOMS=@psi-23
-phi24: TORSION ATOMS=@phi-24
-psi24: TORSION ATOMS=@psi-24
-phi25: TORSION ATOMS=@phi-25
-psi25: TORSION ATOMS=@psi-25
-phi26: TORSION ATOMS=@phi-26
-psi26: TORSION ATOMS=@psi-26
-phi27: TORSION ATOMS=@phi-27
-psi27: TORSION ATOMS=@psi-27
-phi28: TORSION ATOMS=@phi-28
-psi28: TORSION ATOMS=@psi-28
-phi29: TORSION ATOMS=@phi-29
-psi29: TORSION ATOMS=@psi-29
-phi30: TORSION ATOMS=@phi-30
-psi30: TORSION ATOMS=@psi-30
-phi31: TORSION ATOMS=@phi-31
-psi31: TORSION ATOMS=@psi-31
-phi32: TORSION ATOMS=@phi-32
-psi32: TORSION ATOMS=@psi-32
-phi33: TORSION ATOMS=@phi-33
-psi33: TORSION ATOMS=@psi-33
-phi34: TORSION ATOMS=@phi-34
-psi34: TORSION ATOMS=@psi-34
-phi35: TORSION ATOMS=@phi-35
-psi35: TORSION ATOMS=@psi-35
-phi36: TORSION ATOMS=@phi-36
-psi36: TORSION ATOMS=@psi-36
-phi37: TORSION ATOMS=@phi-37
-psi37: TORSION ATOMS=@psi-37
-phi38: TORSION ATOMS=@phi-38
-psi38: TORSION ATOMS=@psi-38
-phi39: TORSION ATOMS=@phi-39
-psi39: TORSION ATOMS=@psi-39
-phi40: TORSION ATOMS=@phi-40
-psi40: TORSION ATOMS=@psi-40
-phi41: TORSION ATOMS=@phi-41
-psi41: TORSION ATOMS=@psi-41
-phi42: TORSION ATOMS=@phi-42
-psi42: TORSION ATOMS=@psi-42
-phi43: TORSION ATOMS=@phi-43
-psi43: TORSION ATOMS=@psi-43
-phi44: TORSION ATOMS=@phi-44
-psi44: TORSION ATOMS=@psi-44
-phi45: TORSION ATOMS=@phi-45
-psi45: TORSION ATOMS=@psi-45
-phi46: TORSION ATOMS=@phi-46
-psi46: TORSION ATOMS=@psi-46
-phi47: TORSION ATOMS=@phi-47
-psi47: TORSION ATOMS=@psi-47
-phi48: TORSION ATOMS=@phi-48
-psi48: TORSION ATOMS=@psi-48
-phi49: TORSION ATOMS=@phi-49
-psi49: TORSION ATOMS=@psi-49
-phi50: TORSION ATOMS=@phi-50
-psi50: TORSION ATOMS=@psi-50
-phi51: TORSION ATOMS=@phi-51
-psi51: TORSION ATOMS=@psi-51
-phi52: TORSION ATOMS=@phi-52
-psi52: TORSION ATOMS=@psi-52
-phi53: TORSION ATOMS=@phi-53
-psi53: TORSION ATOMS=@psi-53
-phi54: TORSION ATOMS=@phi-54
-psi54: TORSION ATOMS=@psi-54
-phi55: TORSION ATOMS=@phi-55
-psi55: TORSION ATOMS=@psi-55
-
-# print CVs using regular expressions
-PRINT ARG=(phi.*),(psi.*) FILE=RAMA
