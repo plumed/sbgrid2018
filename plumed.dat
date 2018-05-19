@@ -5,7 +5,7 @@
 # b) power user: only adjust the atoms that we need in RMSD calculation.
 # In this case, all CA. Can be obtained with this command:
 # awk '{printf("%i,",$2)}' GB1_native_CA.pdb | sed "s/,$//"
-ca: GROUP ATOMS=2,10,17,29,38,46,54,62,70,74,83,90,98,107,111,120,127,134,141,150,155,162,170,175,180,187,192,201,210,217,228,237,246,258,263,271,279,287,291,298,306,310,319,333,340,352,360,368,373,380,389,396,407,414,421,42
+ca: GROUP ATOMS=2,10,17,29,38,46,54,62,70,74,83,90,98,107,111,120,127,134,141,150,155,162,170,175,180,187,192,201,210,217,228,237,246,258,263,271,279,287,291,298,306,310,319,333,340,352,360,368,373,380,389,396,407,414,421,428
 WHOLEMOLECULES ENTITY0=ca
 # Notice that as of PLUMED 2.5 this will not be required in order to compute RMSD.
 
