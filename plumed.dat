@@ -3,22 +3,23 @@
 # a) basic: let's adjust the whole molecule. 
 # WHOLEMOLECULES ENTITY0=1-436
 # b) power user: only adjust the atoms that we need in RMSD calculation.
-# In this case, all CA.
-# grep CA GB1_native.pdb | awk '{printf("%i,",$2)}' | sed "s/,$//"
+# In this case, all CA. Can be obtained with this command:
+# awk '{printf("%i,",$2)}' GB1_native_CA.pdb | sed "s/,$//"
 ca: GROUP ATOMS=2,10,17,29,38,46,54,62,70,74,83,90,98,107,111,120,127,134,141,150,155,162,170,175,180,187,192,201,210,217,228,237,246,258,263,271,279,287,291,298,306,310,319,333,340,352,360,368,373,380,389,396,407,414,421,42
 WHOLEMOLECULES ENTITY0=ca
 # Notice that as of PLUMED 2.5 this will not be required in order to compute RMSD.
 
-# calculate the RMSD on the CA atoms
-# we can open the pdb and look how atoms for alignment and displacement are marked
+# Calculate the RMSD on the CA atoms
+# Notice that GB1_native_CA.pdb only contains CA atoms. Also notice
+# that b-factors and occupancies are set to 1.00.
 rmsd: RMSD REFERENCE=GB1_native_CA.pdb TYPE=OPTIMAL 
 
 # metadynamics
 METAD ...
-LABEL=mtd ARG=rmsd
-SIGMA=0.05 HEIGHT=1.2 PACE=500
+  LABEL=mtd ARG=rmsd
+  SIGMA=0.05 HEIGHT=1.2 PACE=500
 # bias factor is high, KbT=0.956163
-BIASFACTOR=25.0 GRID_MIN=0 GRID_MAX=5
+  BIASFACTOR=25.0 GRID_MIN=0 GRID_MAX=5
 ...
 
 # we can add an upper wall at 2.5 to show how to limit exploration in CV space 
