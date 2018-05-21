@@ -61,4 +61,4 @@ PRINT ARG=rmsd,alpha,beta STRIDE=1 FILE=COLVAR_ANALYSIS
 
 # Align and dump the whole molecule, mostly for visualization
 FIT_TO_TEMPLATE REFERENCE=GB1_native.pdb TYPE=OPTIMAL
-DUMPATOMS ATOMS=1-436 FILE=whole.xtc
+DUMPATOMS ATOMS=1-436 FILE=whole.gro
