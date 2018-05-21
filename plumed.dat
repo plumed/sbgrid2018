@@ -1,7 +1,7 @@
 # Make molecule whole 
 # We have two options:
 # a) basic: let's adjust the whole molecule. 
-# WHOLEMOLECULES ENTITY0=1-436
+#WHOLEMOLECULES ENTITY0=1-436
 # b) power user: only adjust the atoms that we need in RMSD calculation.
 # In this case, all CA. Can be obtained with this command:
 # awk '{printf("%i,",$2)}' GB1_native_CA.pdb | sed "s/,$//"
@@ -15,6 +15,7 @@ rmsd: RMSD REFERENCE=GB1_native_CA.pdb TYPE=OPTIMAL
 
 # Metadynamics
 # Deposit a hill every 500 steps, with height 1.2 (NB: KbT=0.956163)
+# PLUMED units: LENGTH = nm; ENERGY = kj/mol
 METAD ...
   LABEL=mtd ARG=rmsd
   SIGMA=0.05 HEIGHT=1.2 PACE=500
@@ -26,7 +27,7 @@ uw: UPPER_WALLS ARG=rmsd AT=2.5 KAPPA=1000
 
 # CVs for on-the-fly analysis
 # in the Go-model we should see a nice correlation with rmsd from native
-# and we cannot calculate this with the driver a posteriori
+# and we cannot calculate this a posteriori
 ene: ENERGY
 
 # print information to file
